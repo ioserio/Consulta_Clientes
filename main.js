@@ -1,3 +1,40 @@
+// Función para inicializar el formulario de búsqueda de direcciones
+function initBuscarDireccion() {
+    const form = document.querySelector('form[action="buscar_direccion.php"]');
+    const resultados = document.getElementById('resultados');
+    if (!form || !resultados) return;
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const direccion = form.direccion.value.trim();
+        if (direccion === '') {
+            resultados.innerHTML = '<p>Ingrese una dirección para buscar.</p>';
+            return;
+        }
+        resultados.innerHTML = '<p>Buscando...</p>';
+        fetch('buscar_direccion.php?direccion=' + encodeURIComponent(direccion))
+            .then(response => response.text())
+            .then(html => {
+                resultados.innerHTML = html;
+            })
+            .catch(() => {
+                resultados.innerHTML = '<p>Error al buscar la dirección.</p>';
+            });
+    });
+}
+
+// Inicializar el módulo si se carga el formulario de direcciones
+if (window.location.pathname.endsWith('home.html')) {
+    document.addEventListener('DOMContentLoaded', function() {
+        // Cuando se carga el módulo de direcciones desde home.html
+        const mainContent = document.getElementById('mainContent');
+        const observer = new MutationObserver(() => {
+            if (document.querySelector('form[action="buscar_direccion.php"]')) {
+                initBuscarDireccion();
+            }
+        });
+        observer.observe(mainContent, { childList: true, subtree: true });
+    });
+}
 function initSubirClientes() {
     var uploadForm = document.getElementById('uploadForm');
     if (uploadForm) {

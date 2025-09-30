@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Buscar Dirección de Cliente</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <style>
+        .buscador-clientes {
+            max-width: 800px;
+            margin: 30px auto;
+            background: #fff;
+            border-radius: 8px;
+            padding: 30px 30px 20px 30px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+        }
+        .buscador-form {
+            display: flex;
+            align-items: flex-end;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        .buscador-form .campo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .buscador-form label {
+            font-weight: bold;
+            color: #007bff;
+            margin-bottom: 6px;
+            letter-spacing: 1px;
+        }
+        .buscador-form input {
+            width: 140px;
+            padding: 7px;
+            font-size: 16px;
+            border: 1px solid #bbb;
+            border-radius: 4px;
+            text-align: center;
+        }
+        .buscador-form button {
+            padding: 10px 28px;
+            font-size: 17px;
+            background: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        #resultados {
+            margin-top: 10px;
+            border: 1px solid #222;
+            min-height: 220px;
+            background: #fff;
+            border-radius: 4px;
+            padding: 12px;
+        }
+        .result-title {
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+    </style>
+    <div class="buscador-clientes">
+        <form class="buscador-form" action="buscar_direccion.php" method="get">
+            <div class="campo">
+                <label for="direccion">DIRECCIÓN</label>
+                <input type="text" id="direccion" name="direccion" required>
+            </div>
+            <div class="campo">
+                <label for="codigoZona">CodigoZonaVenta</label>
+                <input type="text" id="codigoZona" name="codigoZonaVenta">
+            </div>
+            <button type="submit">Buscar</button>
+        </form>
+        <div class="result-title">RESULTADOS</div>
+        <div id="resultados">
+            <!-- Aquí se mostrarán los resultados -->
+        </div>
+    </div>
+</body>
+</html>

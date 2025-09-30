@@ -105,7 +105,23 @@
                         mainContent.innerHTML = '<div class="placeholder">Error al cargar el módulo.</div>';
                     });
             } else if (module === 'address') {
-                mainContent.innerHTML = '<div class="placeholder">(Próximamente) Verificación de direcciones.</div>';
+                fetch('buscar_direccion.html')
+                    .then(response => response.text())
+                    .then(html => {
+                        // Extraer el div principal del buscador de direcciones
+                        const tempDiv = document.createElement('div');
+                        tempDiv.innerHTML = html;
+                        const buscador = tempDiv.querySelector('.buscador-clientes');
+                        mainContent.innerHTML = '';
+                        if (buscador) {
+                            mainContent.appendChild(buscador);
+                        } else {
+                            mainContent.innerHTML = '<div class="placeholder">No se pudo cargar el módulo.</div>';
+                        }
+                    })
+                    .catch(() => {
+                        mainContent.innerHTML = '<div class="placeholder">Error al cargar el módulo.</div>';
+                    });
             }
         }
     </script>
