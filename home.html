@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Home - Módulos de Clientes</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body { margin: 0; }
+        .layout { display: flex; min-height: 100vh; }
+        .sidebar {
+            width: 260px;
+            background: #fff;
+            box-shadow: 2px 0 8px rgba(0,0,0,0.07);
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        .sidebar h2 {
+            color: #007bff;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .module-btn {
+            width: 100%;
+            padding: 16px;
+            font-size: 17px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-bottom: 10px;
+            transition: background 0.2s;
+        }
+        .module-btn.import { background: #007bff; color: #fff; }
+        .module-btn.import:hover { background: #0056b3; }
+        .module-btn.consult { background: #28a745; color: #fff; }
+        .module-btn.consult:hover { background: #1e7e34; }
+        .module-btn.address { background: #ffc107; color: #333; }
+        .module-btn.address:hover { background: #e0a800; }
+        .main-content {
+            flex: 1;
+            padding: 60px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .placeholder {
+            color: #888;
+            font-size: 22px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="layout">
+        <div class="sidebar">
+            <h2>Módulos</h2>
+            <button class="module-btn import" onclick="loadModule('import')">Importar clientes (Excel)</button>
+            <button class="module-btn consult" onclick="loadModule('consult')">Consultar clientes</button>
+            <button class="module-btn address" onclick="loadModule('address')">Verificar direcciones</button>
+        </div>
+        <div class="main-content" id="mainContent">
+            <div class="placeholder">Selecciona un módulo en la barra lateral para comenzar.</div>
+        </div>
+    </div>
+    <script>
+        function loadModule(module) {
+            const mainContent = document.getElementById('mainContent');
+            if (module === 'import') {
+                fetch('subir_clientes.html')
+                    .then(response => response.text())
+                    .then(html => {
+                        // Extraer solo el contenido del div .container
+                        const tempDiv = document.createElement('div');
+                        tempDiv.innerHTML = html;
+                        const container = tempDiv.querySelector('.container');
+                        mainContent.innerHTML = '';
+                        if (container) {
+                            mainContent.appendChild(container);
+                            if (window.initSubirClientes) window.initSubirClientes();
+                        } else {
+                            mainContent.innerHTML = '<div class="placeholder">No se pudo cargar el módulo.';
+                        }
+                    })
+                    .catch(() => {
+                        mainContent.innerHTML = '<div class="placeholder">Error al cargar el módulo.</div>';
+                    });
+            } else if (module === 'consult') {
+                fetch('consultar_clientes.html')
+                    .then(response => response.text())
+                    .then(html => {
+                        // Extraer solo el contenido principal del buscador
+                        const tempDiv = document.createElement('div');
+                        tempDiv.innerHTML = html;
+                        const buscador = tempDiv.querySelector('.buscador-clientes');
+                        mainContent.innerHTML = '';
+                        if (buscador) {
+                            mainContent.appendChild(buscador);
+                            if (window.initBuscadorClientes) window.initBuscadorClientes();
+                        } else {
+                            mainContent.innerHTML = '<div class="placeholder">No se pudo cargar el módulo.</div>';
+                        }
+                    })
+                    .catch(() => {
+                        mainContent.innerHTML = '<div class="placeholder">Error al cargar el módulo.</div>';
+                    });
+            } else if (module === 'address') {
+                mainContent.innerHTML = '<div class="placeholder">(Próximamente) Verificación de direcciones.</div>';
+            }
+        }
+    </script>
+    <script src="main.js"></script>
+</body>
+</html>
