@@ -16,8 +16,8 @@ function initBuscarDireccion() {
         const sector = (form.sector ? form.sector.value.trim() : '');
         const grupo = (form.grupo ? form.grupo.value.trim() : '');
         const puesto = (form.puesto ? form.puesto.value.trim() : '');
-        if (calle === '') {
-            resultados.innerHTML = '<p>Ingrese una dirección para buscar.</p>';
+        if (calle === '' && sector === '' && grupo === '') {
+            resultados.innerHTML = '<p>Ingrese Calle/Jr/pasaje/Mcdo, Sector o Grupo para buscar.</p>';
             return;
         }
         resultados.innerHTML = '<p>Buscando...</p>';
