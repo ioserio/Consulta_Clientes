@@ -71,3 +71,37 @@ button:hover { background: #0056b3; }
 #result { margin-top: 20px; text-align: center; }
 /* Loader animation */
 @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+/* ============ Address (buscar_direccion) scoped styles ============ */
+.buscador-clientes.address-form {
+	max-width: 1100px;
+	margin: 40px auto;
+	background: #fff;
+	border-radius: 10px;
+	padding: 40px;
+	box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+}
+.address-form .buscador-form {
+	display: flex;
+	flex-direction: column;
+	gap: 18px;
+	margin-bottom: 20px;
+}
+.address-form .form-layout { display: flex; gap: 36px; align-items: flex-start; }
+.address-form .primary-col { display: flex; flex-direction: column; gap: 14px; min-width: 600px; }
+.address-form .primary-row { display: flex; align-items: flex-end; gap: 24px; }
+.address-form .advanced-col { flex: 1; display: flex; flex-direction: column; gap: 20px; min-width: 420px; }
+.address-form .buscador-form .campo { display: flex; flex-direction: column; align-items: flex-start; }
+.address-form .buscador-form label { font-weight: normal; color: #333; margin-bottom: 6px; letter-spacing: 1px; }
+.address-form .buscador-form input { width: 180px; padding: 7px; font-size: 16px; border: 1px solid #bbb; border-radius: 4px; text-align: left; }
+.address-form #calle { width: 420px; }
+.address-form #codigoZona { width: 180px; }
+.address-form .buscar-btn { text-transform: uppercase; font-size: 20px; padding: 12px 28px; border-radius: 8px; }
+.address-form .button-row { margin-top: 4px; }
+.address-form .adv-section { background: transparent; border: none; padding: 0; width: 100%; }
+.address-form .band-title { border: 1px solid #bbb; padding: 6px 10px; text-align: center; color: #c62828; font-weight: bold; border-radius: 4px; }
+.address-form .adv-row { display: flex; gap: 16px; flex-wrap: wrap; }
+.address-form .adv-row .campo input { width: 140px; }
+.address-form .adv-row .campo input#numeral { width: 140px; }
+.address-form .result-title { font-weight: bold; font-size: 18px; margin: 16px 0 8px 0; letter-spacing: 0.5px; color: #333; }
+.address-form #resultados { margin-top: 10px; border: 1px solid #222; min-height: 300px; background: #fff; border-radius: 4px; padding: 12px; }

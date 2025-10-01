@@ -3,15 +3,37 @@ function initBuscarDireccion() {
     const form = document.querySelector('form[action="buscar_direccion.php"]');
     const resultados = document.getElementById('resultados');
     if (!form || !resultados) return;
+    if (form.dataset.initialized === '1') return; // evitar doble inicialización
+    form.dataset.initialized = '1';
     form.addEventListener('submit', function(e) {
         e.preventDefault();
-        const direccion = form.direccion.value.trim();
-        if (direccion === '') {
+        // Nuevos campos del formulario
+        const calle = (form.calle ? form.calle.value.trim() : '');
+        const codigoZona = (form.codigoZonaVenta ? form.codigoZonaVenta.value.trim() : '');
+    const mz = (form.mz ? form.mz.value.trim() : '');
+    const lt = (form.lt ? form.lt.value.trim() : '');
+    const numeral = (form.numeral ? form.numeral.value.trim() : '');
+        const sector = (form.sector ? form.sector.value.trim() : '');
+        const grupo = (form.grupo ? form.grupo.value.trim() : '');
+        const puesto = (form.puesto ? form.puesto.value.trim() : '');
+        if (calle === '') {
             resultados.innerHTML = '<p>Ingrese una dirección para buscar.</p>';
             return;
         }
         resultados.innerHTML = '<p>Buscando...</p>';
-        fetch('buscar_direccion.php?direccion=' + encodeURIComponent(direccion))
+        // Construir parámetros incluyendo el código de zona si se proporcionó
+        const params = new URLSearchParams();
+        params.set('calle', calle);
+        if (codigoZona !== '') {
+            params.set('codigoZonaVenta', codigoZona);
+        }
+        if (mz !== '') params.set('mz', mz);
+        if (lt !== '') params.set('lt', lt);
+    if (numeral !== '') params.set('numeral', numeral);
+        if (sector !== '') params.set('sector', sector);
+        if (grupo !== '') params.set('grupo', grupo);
+        if (puesto !== '') params.set('puesto', puesto);
+        fetch('buscar_direccion.php?' + params.toString())
             .then(response => response.text())
             .then(html => {
                 resultados.innerHTML = html;

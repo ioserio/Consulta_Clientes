@@ -8,37 +8,60 @@
 <body>
     <style>
         .buscador-clientes {
-            max-width: 800px;
-            margin: 30px auto;
+            max-width: 1100px;
+            margin: 40px auto;
             background: #fff;
-            border-radius: 8px;
-            padding: 30px 30px 20px 30px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.08);
         }
         .buscador-form {
             display: flex;
+            flex-direction: column;
+            gap: 18px;
+            margin-bottom: 20px;
+        }
+        .form-layout {
+            display: flex;
+            gap: 36px;
+            align-items: flex-start;
+        }
+        .primary-col {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            min-width: 600px;
+        }
+        .primary-row {
+            display: flex;
             align-items: flex-end;
-            gap: 30px;
-            margin-bottom: 30px;
+            gap: 24px;
+        }
+        .advanced-col {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            min-width: 420px;
         }
         .buscador-form .campo {
             display: flex;
             flex-direction: column;
-            align-items: center;
+            align-items: flex-start;
         }
         .buscador-form label {
-            font-weight: bold;
-            color: #007bff;
+            font-weight: normal;
+            color: #333;
             margin-bottom: 6px;
             letter-spacing: 1px;
         }
         .buscador-form input {
-            width: 140px;
+            width: 180px;
             padding: 7px;
             font-size: 16px;
             border: 1px solid #bbb;
             border-radius: 4px;
-            text-align: center;
+            text-align: left;
         }
         .buscador-form button {
             padding: 10px 28px;
@@ -50,10 +73,21 @@
             cursor: pointer;
             margin-left: 10px;
         }
+        .buscar-btn { text-transform: uppercase; font-size: 20px; padding: 12px 28px; border-radius: 8px; }
+        .button-row { margin-top: 4px; }
+        /* Secciones avanzadas apiladas a la derecha */
+    #calle { width: 420px; }
+    #codigoZona { width: 260px; }
+    .adv-section { background: transparent; border: none; padding: 0; width: 100%; }
+    .band-title { border: 1px solid #bbb; padding: 6px 10px; text-align: center; color: #c62828; font-weight: bold; border-radius: 4px; }
+    .adv-row { display: flex; gap: 16px; flex-wrap: wrap; }
+        .adv-row .campo { align-items: flex-start; }
+        .adv-row .campo input { width: 120px; }
+        .adv-row .campo input#nro { width: 140px; }
         #resultados {
             margin-top: 10px;
             border: 1px solid #222;
-            min-height: 220px;
+            min-height: 300px;
             background: #fff;
             border-radius: 4px;
             padding: 12px;
@@ -61,22 +95,73 @@
         .result-title {
             font-weight: bold;
             font-size: 18px;
-            margin-bottom: 8px;
-            letter-spacing: 1px;
+            margin: 16px 0 8px 0;
+            letter-spacing: 0.5px;
+            color: #333;
         }
     </style>
-    <div class="buscador-clientes">
+    <div class="buscador-clientes address-form">
         <form class="buscador-form" action="buscar_direccion.php" method="get">
-            <div class="campo">
-                <label for="direccion">DIRECCIÓN</label>
-                <input type="text" id="direccion" name="direccion" required>
+            <div class="form-layout">
+                <div class="primary-col">
+                    <div class="primary-row">
+                        <div class="campo">
+                            <label for="calle">Calle/Jr/pasaje/Mcdo</label>
+                            <input type="text" id="calle" name="calle" required>
+                        </div>
+                        <div class="campo">
+                            <label for="codigoZona">CodigoZonaVenta</label>
+                            <input type="text" id="codigoZona" name="codigoZonaVenta">
+                        </div>
+                    </div>
+                    <div class="button-row">
+                        <button type="submit" class="buscar-btn">Buscar</button>
+                    </div>
+                </div>
+                <div class="advanced-col">
+                    <div class="adv-section">
+                        <div class="band-title">Mz y Lt o Numeral</div>
+                        <div class="adv-row">
+                            <div class="campo">
+                                <label for="mz">MZ</label>
+                                <input type="text" id="mz" name="mz">
+                            </div>
+                            <div class="campo">
+                                <label for="lt">LT</label>
+                                <input type="text" id="lt" name="lt">
+                            </div>
+                            <div class="campo">
+                                <label for="numeral">Numeral</label>
+                                <input type="text" id="numeral" name="numeral">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="adv-section">
+                        <div class="band-title">Sector y grupo</div>
+                        <div class="adv-row">
+                            <div class="campo">
+                                <label for="sector">Sector</label>
+                                <input type="text" id="sector" name="sector">
+                            </div>
+                            <div class="campo">
+                                <label for="grupo">Grupo</label>
+                                <input type="text" id="grupo" name="grupo">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="adv-section">
+                        <div class="band-title">Mercados</div>
+                        <div class="adv-row">
+                            <div class="campo">
+                                <label for="puesto">Puesto</label>
+                                <input type="text" id="puesto" name="puesto">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="campo">
-                <label for="codigoZona">CodigoZonaVenta</label>
-                <input type="text" id="codigoZona" name="codigoZonaVenta">
-            </div>
-            <button type="submit">Buscar</button>
         </form>
+
         <div class="result-title">RESULTADOS</div>
         <div id="resultados">
             <!-- Aquí se mostrarán los resultados -->

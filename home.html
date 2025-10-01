@@ -115,6 +115,8 @@
                         mainContent.innerHTML = '';
                         if (buscador) {
                             mainContent.appendChild(buscador);
+                            // Inicializar lógica de búsqueda por dirección + zona
+                            if (window.initBuscarDireccion) window.initBuscarDireccion();
                         } else {
                             mainContent.innerHTML = '<div class="placeholder">No se pudo cargar el módulo.</div>';
                         }
