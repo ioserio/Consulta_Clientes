@@ -10,8 +10,14 @@ function initBuscarDireccion() {
         // Nuevos campos del formulario
         const calle = (form.calle ? form.calle.value.trim() : '');
         const codigoZona = (form.codigoZonaVenta ? form.codigoZonaVenta.value.trim() : '');
-    const mz = (form.mz ? form.mz.value.trim() : '');
-    const lt = (form.lt ? form.lt.value.trim() : '');
+        // MZ/LT pueden venir de dos secciones: "Mz y Lt o Numeral" (mz, lt) o "Sector y grupo" (mz_sg, lt_sg)
+        const mzPrim = (form.mz ? form.mz.value.trim() : '');
+        const ltPrim = (form.lt ? form.lt.value.trim() : '');
+        const mzSg = (form.mz_sg ? form.mz_sg.value.trim() : '');
+        const ltSg = (form.lt_sg ? form.lt_sg.value.trim() : '');
+        // Preferir los valores de la sección Sector y grupo si están llenos
+        const mz = mzSg !== '' ? mzSg : mzPrim;
+        const lt = ltSg !== '' ? ltSg : ltPrim;
     const numeral = (form.numeral ? form.numeral.value.trim() : '');
         const sector = (form.sector ? form.sector.value.trim() : '');
         const grupo = (form.grupo ? form.grupo.value.trim() : '');
@@ -29,6 +35,9 @@ function initBuscarDireccion() {
         }
         if (mz !== '') params.set('mz', mz);
         if (lt !== '') params.set('lt', lt);
+        // Enviar también los campos originales por si el backend desea distinguir origen
+        if (mzSg !== '') params.set('mz_sg', mzSg);
+        if (ltSg !== '') params.set('lt_sg', ltSg);
     if (numeral !== '') params.set('numeral', numeral);
         if (sector !== '') params.set('sector', sector);
         if (grupo !== '') params.set('grupo', grupo);

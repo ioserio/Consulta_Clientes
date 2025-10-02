@@ -116,6 +116,7 @@
                     </div>
                     <div class="button-row">
                         <button type="submit" class="buscar-btn">Buscar</button>
+                        <button type="button" id="limpiarBtn" class="limpiar-btn" style="background:#6c757d;">Limpiar</button>
                     </div>
                 </div>
                 <div class="advanced-col">
@@ -139,6 +140,14 @@
                     <div class="adv-section">
                         <div class="band-title">Sector y grupo</div>
                         <div class="adv-row">
+                            <div class="campo">
+                                <label for="mz_sg">MZ</label>
+                                <input type="text" id="mz_sg" name="mz_sg">
+                            </div>
+                            <div class="campo">
+                                <label for="lt_sg">LT</label>
+                                <input type="text" id="lt_sg" name="lt_sg">
+                            </div>
                             <div class="campo">
                                 <label for="sector">Sector</label>
                                 <input type="text" id="sector" name="sector">
@@ -167,5 +176,26 @@
             <!-- Aquí se mostrarán los resultados -->
         </div>
     </div>
+    <script>
+    // Botón para limpiar todos los inputs del formulario y el área de resultados
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('form.buscador-form');
+        const limpiarBtn = document.getElementById('limpiarBtn');
+        const resultados = document.getElementById('resultados');
+        if (limpiarBtn && form) {
+            limpiarBtn.addEventListener('click', function() {
+                const inputs = form.querySelectorAll('input');
+                inputs.forEach(inp => {
+                    if (inp.type === 'checkbox' || inp.type === 'radio') {
+                        inp.checked = false;
+                    } else {
+                        inp.value = '';
+                    }
+                });
+                if (resultados) resultados.innerHTML = '';
+            });
+        }
+    });
+    </script>
 </body>
 </html>

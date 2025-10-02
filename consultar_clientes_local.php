@@ -1,7 +1,14 @@
 <?php
 // consultar_clientes.php
-require_once __DIR__ . '/config.php';
-$conn = db_connect();
+$host = 'localhost';
+$user = 'root';
+$pass = '';
+$db = 'consulta_cliente';
+
+$conn = new mysqli($host, $user, $pass, $db);
+if ($conn->connect_error) {
+    die('<span style="color:red;">Error de conexión a la base de datos.</span>');
+}
 
 $codigo = isset($_GET['codigo']) ? $conn->real_escape_string($_GET['codigo']) : '';
 $dni = isset($_GET['dni']) ? $conn->real_escape_string($_GET['dni']) : '';
@@ -21,10 +28,6 @@ $whereSQL = count($where) ? ('WHERE ' . implode(' AND ', $where)) : '';
 
 $sql = "SELECT Codigo, DocIdentidad, Nombre, Direccion, TelefonoPublico FROM cartera_clientes $whereSQL LIMIT 500";
 $result = $conn->query($sql);
-if ($conn->error) {
-    http_response_code(500);
-    die('<span style="color:red;">Error al ejecutar la consulta.</span>');
-}
 
 if ($result && $result->num_rows > 0) {
     echo '<div style="overflow-x:auto;">';
