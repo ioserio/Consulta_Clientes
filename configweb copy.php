@@ -1,10 +1,10 @@
 <?php
 // Configuración de base de datos y utilidades comunes
 
-$DB_HOST = 'localhost';
-$DB_USER = 'root';
-$DB_PASS = '';
-$DB_NAME = 'consulta_cliente';
+$DB_HOST = 'sql306.infinityfree.com';
+$DB_USER = 'if0_39093659';
+$DB_PASS = '923486317';
+$DB_NAME = 'if0_39093659_consulta_cliente';
 
 function db_connect() {
     global $DB_HOST, $DB_USER, $DB_PASS, $DB_NAME;

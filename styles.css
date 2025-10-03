@@ -96,7 +96,22 @@ button:hover { background: #0056b3; }
 .address-form .buscador-form input { width: 180px; padding: 7px; font-size: 16px; border: 1px solid #bbb; border-radius: 4px; text-align: left; }
 .address-form #calle { width: 420px; }
 .address-form #codigoZona { width: 180px; }
-.address-form .buscar-btn { text-transform: uppercase; font-size: 20px; padding: 12px 28px; border-radius: 8px; }
+.address-form .buscar-btn, .address-form .limpiar-btn {
+	text-transform: uppercase;
+	font-size: 20px;
+	padding: 12px 28px;
+	border-radius: 8px;
+	border: none;
+	cursor: pointer;
+	margin-left: 10px;
+}
+.address-form .limpiar-btn {
+	background: #6c757d;
+	color: #fff;
+}
+.address-form .limpiar-btn:hover {
+	background: #495057;
+}
 .address-form .button-row { margin-top: 4px; }
 .address-form .adv-section { background: transparent; border: none; padding: 0; width: 100%; }
 .address-form .band-title { border: 1px solid #bbb; padding: 6px 10px; text-align: center; color: #c62828; font-weight: bold; border-radius: 4px; }

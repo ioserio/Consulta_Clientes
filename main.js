@@ -2,9 +2,11 @@
 function initBuscarDireccion() {
     const form = document.querySelector('form[action="buscar_direccion.php"]');
     const resultados = document.getElementById('resultados');
+    const limpiarBtn = document.getElementById('limpiarBtn');
     if (!form || !resultados) return;
     if (form.dataset.initialized === '1') return; // evitar doble inicialización
     form.dataset.initialized = '1';
+    // Inicializar búsqueda
     form.addEventListener('submit', function(e) {
         e.preventDefault();
         // Nuevos campos del formulario
@@ -18,7 +20,7 @@ function initBuscarDireccion() {
         // Preferir los valores de la sección Sector y grupo si están llenos
         const mz = mzSg !== '' ? mzSg : mzPrim;
         const lt = ltSg !== '' ? ltSg : ltPrim;
-    const numeral = (form.numeral ? form.numeral.value.trim() : '');
+        const numeral = (form.numeral ? form.numeral.value.trim() : '');
         const sector = (form.sector ? form.sector.value.trim() : '');
         const grupo = (form.grupo ? form.grupo.value.trim() : '');
         const puesto = (form.puesto ? form.puesto.value.trim() : '');
@@ -38,7 +40,7 @@ function initBuscarDireccion() {
         // Enviar también los campos originales por si el backend desea distinguir origen
         if (mzSg !== '') params.set('mz_sg', mzSg);
         if (ltSg !== '') params.set('lt_sg', ltSg);
-    if (numeral !== '') params.set('numeral', numeral);
+        if (numeral !== '') params.set('numeral', numeral);
         if (sector !== '') params.set('sector', sector);
         if (grupo !== '') params.set('grupo', grupo);
         if (puesto !== '') params.set('puesto', puesto);
@@ -51,6 +53,36 @@ function initBuscarDireccion() {
                 resultados.innerHTML = '<p>Error al buscar la dirección.</p>';
             });
     });
+
+    // Inicializar botón Limpiar
+    if (limpiarBtn) {
+        limpiarBtn.addEventListener('click', function() {
+            // Limpiar todos los inputs
+            const inputs = form.querySelectorAll('input');
+            inputs.forEach(inp => {
+                switch (inp.type) {
+                    case 'checkbox':
+                    case 'radio':
+                        inp.checked = false;
+                        break;
+                    default:
+                        inp.value = '';
+                }
+            });
+            // Limpiar selects si existen
+            const selects = form.querySelectorAll('select');
+            selects.forEach(sel => {
+                sel.selectedIndex = 0;
+            });
+            // Limpiar textareas si existen
+            const textareas = form.querySelectorAll('textarea');
+            textareas.forEach(ta => {
+                ta.value = '';
+            });
+            // Limpiar resultados
+            if (resultados) resultados.innerHTML = '';
+        });
+    }
 }
 
 // Inicializar el módulo si se carga el formulario de direcciones
